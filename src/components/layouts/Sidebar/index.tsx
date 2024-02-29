@@ -1,4 +1,7 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 import React, { FC } from 'react';
 import {
   GrHomeRounded,
@@ -12,6 +15,8 @@ import {
 interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = () => {
+  const router = useRouter();
+
   return (
     <div className="pb-12 min-h-screen">
       <div className="space-y-4 py-4">
@@ -20,27 +25,31 @@ const Sidebar: FC<SidebarProps> = () => {
           <div className="space-y-3">
             <Button
               variant={'ghost'}
-              className="w-full justify-start rounded-none hover:text-primary">
+              className="w-full justify-start rounded-none hover:text-primary"
+              onClick={() => router.push('/')}>
               <GrHomeRounded className="mr-2" />
               Home
             </Button>
             <Button
               variant={'ghost'}
-              className="w-full justify-start rounded-none hover:text-primary">
+              className="w-full justify-start rounded-none hover:text-primary"
+              onClick={() => router.push('/customers')}>
               <GrUser className="mr-2" />
-              Nasabah
+              Customers
             </Button>
             <Button
               variant={'ghost'}
-              className="w-full justify-start rounded-none hover:text-primary">
+              className="w-full justify-start rounded-none hover:text-primary"
+              onClick={() => router.push('/savings')}>
               <GrDocumentStore className="mr-2" />
-              Tabungan
+              Savings
             </Button>
             <Button
               variant={'ghost'}
-              className="w-full justify-start rounded-none hover:text-primary">
+              className="w-full justify-start rounded-none hover:text-primary"
+              onClick={() => router.push('/loan')}>
               <GrMoney className="mr-2" />
-              Pinjaman
+              Loan
             </Button>
           </div>
         </div>
@@ -50,9 +59,10 @@ const Sidebar: FC<SidebarProps> = () => {
             <div className="space-y-3">
               <Button
                 variant={'ghost'}
-                className="w-full justify-start rounded-none hover:text-primary">
+                className="w-full justify-start rounded-none hover:text-primary"
+                onClick={() => router.push('/settings')}>
                 <GrUserSettings className="mr-2" />
-                Setting
+                Settings
               </Button>
               <Button
                 variant={'ghost'}
