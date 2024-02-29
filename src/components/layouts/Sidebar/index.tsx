@@ -11,6 +11,7 @@ import {
   GrUserSettings,
   GrLogout,
 } from 'react-icons/gr';
+import clsx from 'clsx';
 
 interface SidebarProps {}
 
