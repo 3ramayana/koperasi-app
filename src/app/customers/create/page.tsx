@@ -1,4 +1,5 @@
 import Breadcrumbs from '@/components/layouts/Breadcrums';
+import CreateForm from '@/components/layouts/CreateForm';
 import React, { FC } from 'react';
 
 interface CreateCustomersProps {}
@@ -16,8 +17,8 @@ const CreateCustomers: FC<CreateCustomersProps> = () => {
           },
         ]}
       />
-      Halaman create customer
-      {/* Form create customers */}
+
+      <CreateForm />
     </div>
   );
 };

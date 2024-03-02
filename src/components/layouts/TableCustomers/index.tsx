@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { GrEdit } from 'react-icons/gr';
+import { GrEdit, GrView } from 'react-icons/gr';
 
 interface TableCustomersProps {
   query: string;
@@ -36,6 +36,9 @@ const TableCustomers: FC<TableCustomersProps> = ({ query }) => {
             <TableCell>$250.00</TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-3">
+                <Button variant={'outline'}>
+                  <GrView />
+                </Button>
                 <Button variant={'outline'}>
                   <GrEdit />
                 </Button>
