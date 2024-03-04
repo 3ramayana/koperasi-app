@@ -4,6 +4,8 @@ Application for recording customer savings and loan. This is web-based applicati
 
 Link to the video: [https://youtu.be/E29vdPhcsZ0](https://youtu.be/E29vdPhcsZ0)
 
+Link to project repository: [koperasi-app](https://github.com/3ramayana/koperasi-app)
+
 ## 2. Requirements
 
 Prepare the installed application requirements first.
