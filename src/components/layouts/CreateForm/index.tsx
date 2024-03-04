@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, fetcher } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -35,16 +35,57 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
+import useSWR from 'swr';
+import { tblSchool } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
 
 interface CreateFormProps {}
 
 const CreateForm: FC<CreateFormProps> = () => {
+  // get data school from db
+  const { data, error, isLoading } = useSWR<tblSchool[]>(
+    '/api/customers/school',
+    fetcher
+  );
+
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof customerFormSchema>>({
     resolver: zodResolver(customerFormSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof customerFormSchema>) => {
-    console.log(values);
+  const router = useRouter();
+
+  const onSubmit = async (values: z.infer<typeof customerFormSchema>) => {
+    try {
+      const body: any = {
+        firstname: values.firstname,
+        lastname: values.lastname,
+        email: values.email,
+        contact: values.contact,
+        gender: values.gender,
+        address: values.address,
+        school_id: values.schoolId,
+      };
+
+      console.log(body);
+
+      await fetch('/api/customers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      await router.push('/customers');
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Please try again',
+      });
+
+      console.log(error);
+    }
   };
 
   return (
@@ -137,7 +178,7 @@ const CreateForm: FC<CreateFormProps> = () => {
             )}
           />
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="placeOfBirth"
             render={({ field }) => (
@@ -152,9 +193,9 @@ const CreateForm: FC<CreateFormProps> = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="dateOfBirth"
             render={({ field }) => (
@@ -193,11 +234,11 @@ const CreateForm: FC<CreateFormProps> = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <FormField
             control={form.control}
-            name="placeOfDuty"
+            name="schoolId"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Place of Duty</FormLabel>
@@ -210,14 +251,11 @@ const CreateForm: FC<CreateFormProps> = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="SMA Averos">SMA Averos</SelectItem>
-                    <SelectItem value="MTs Sains Algebra">
-                      MTs Sains Algebra
-                    </SelectItem>
-                    <SelectItem value="MI Sains Alhidayah">
-                      MI Sains Alhidayah
-                    </SelectItem>
-                    <SelectItem value="RA Avicenna">RA Avicenna</SelectItem>
+                    {data?.map((item: any) => (
+                      <SelectItem key={item.school_id} value={item.school_id}>
+                        {item.school_name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />

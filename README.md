@@ -2,7 +2,7 @@
 
 Application for recording customer savings and loan. This is web-based application for recording customer transactions for savings and loans at Pendidikan Sains Averos Foundation cooperation with customers being employees of the foundation.
 
-Link to the video: bla bla bla
+Link to the video: [https://youtu.be/E29vdPhcsZ0](https://youtu.be/E29vdPhcsZ0)
 
 ## 2. Requirements
 
@@ -29,6 +29,25 @@ Prepare the installed application requirements first.
 8. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ![alt text](screenshot/customers.png)
+
+## 4. Prepare Database on railway
+
+1. Create account in railway
+2. Create new project Select Provision PostgreSQL
+3. After initialization project finish, Select project and copy DATABASE_URL variable.
+   ![alt text](screenshot/postgres_project.png)
+4. Create `.env` file in main project directory and paste `DATABASE_URL` as a variable.
+   ![alt text](screenshot/database_url.png)
+5. Run the following command
+   ```sh
+   npx prisma generate
+   npx prisma db push
+   ```
+   for create database model on railway based on`./prisma/schema.prisma` file.
+6. Add initial data at `tblSchool` before add data school feature is created.
+   ![alt text](screenshot/initial_tblSchool.png)
+   TODO: add initial data lewat prisma studio
+7. Reload [http://localhost:3000](http://localhost:3000)
 
 ## 4. QnA
 
