@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC } from 'react';
 import {
   Table,
@@ -10,12 +12,22 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { GrEdit, GrView } from 'react-icons/gr';
+import { fetcher } from '@/lib/utils';
+import { tblCustomers, tblSchool } from '@prisma/client';
+import useSWR from 'swr';
 
 interface TableCustomersProps {
   query: string;
 }
 
 const TableCustomers: FC<TableCustomersProps> = ({ query }) => {
+  // fetch data customers
+  const { data, error, isLoading } = useSWR<tblCustomers[]>(
+    '/api/customers',
+    fetcher
+  );
+  console.log(data);
+
   return (
     <div className="mt-10">
       <Table>
@@ -29,22 +41,24 @@ const TableCustomers: FC<TableCustomersProps> = ({ query }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell>Taufiq Ismail</TableCell>
-            <TableCell>ismailtaufiq19@gmail.com</TableCell>
-            <TableCell>SMAS AVEROS</TableCell>
-            <TableCell>$250.00</TableCell>
-            <TableCell className="text-right">
-              <div className="flex justify-end gap-3">
-                <Button variant={'outline'}>
-                  <GrView />
-                </Button>
-                <Button variant={'outline'}>
-                  <GrEdit />
-                </Button>
-              </div>
-            </TableCell>
-          </TableRow>
+          {data?.map((item: any) => (
+            <TableRow key={item.customer_id}>
+              <TableCell>{item.firstname + ' ' + item.lastname}</TableCell>
+              <TableCell>{item.email}</TableCell>
+              <TableCell>{item.tblSchool.school_name}</TableCell>
+              <TableCell>{item.balance}</TableCell>
+              <TableCell className="text-right">
+                <div className="flex justify-end gap-3">
+                  <Button variant={'outline'}>
+                    <GrView />
+                  </Button>
+                  <Button variant={'outline'}>
+                    <GrEdit />
+                  </Button>
+                </div>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>

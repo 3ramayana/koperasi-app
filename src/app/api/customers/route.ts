@@ -18,3 +18,14 @@ export async function POST(request: Request) {
     { status: 201 }
   );
 }
+
+export async function GET() {
+  //get all schools
+  const customers = await prisma.tblCustomers.findMany({
+    include: {
+      tblSchool: true,
+    },
+  });
+
+  return NextResponse.json(customers);
+}
