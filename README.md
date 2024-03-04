@@ -33,8 +33,8 @@ Prepare the installed application requirements first.
 ## 4. Prepare Database on railway
 
 1. Create account in railway
-2. Create new project Select Provision PostgreSQL
-3. After initialization project finish, Select project and copy DATABASE_URL variable.
+2. Create new project then select Provision PostgreSQL
+3. After initialization project finish, Select project and copy `DATABASE_URL` variable.
    ![alt text](screenshot/postgres_project.png)
 4. Create `.env` file in main project directory and paste `DATABASE_URL` as a variable.
    ![alt text](screenshot/database_url.png)
@@ -44,9 +44,15 @@ Prepare the installed application requirements first.
    npx prisma db push
    ```
    for create database model on railway based on`./prisma/schema.prisma` file.
-6. Add initial data at `tblSchool` before add data school feature is created.
-   ![alt text](screenshot/initial_tblSchool.png)
-   TODO: add initial data lewat prisma studio
+6. Add initial data at `tblSchool` before add data school feature is created. To do this, run following command to open prisma studio
+
+   ```sh
+   npx prisma studio
+   ```
+
+   Then select table `tblSchool`, add record and save changes. Example initial data as following image
+   ![alt text](screenshot/tblSchool_initial.png)
+
 7. Reload [http://localhost:3000](http://localhost:3000)
 
 ## 4. QnA
