@@ -6,6 +6,8 @@ Link to the video: [https://youtu.be/E29vdPhcsZ0](https://youtu.be/E29vdPhcsZ0)
 
 Link to project repository: [koperasi-app](https://github.com/3ramayana/koperasi-app)
 
+Link to demo project: [koperasi-app-demo](https://koperasi-app.vercel.app/)
+
 ## 2. Requirements
 
 Prepare the installed application requirements first.
